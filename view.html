@@ -1,0 +1,65 @@
+<head>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-pip/v0.0.2/leaflet-pip.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+<script src='http://underscorejs.org/underscore-min.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; height: 95%; width:100%; }
+</style>
+</head>
+<body>
+<div id='map'></div>
+</body>
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiY2hyaXN3YW5kIiwiYSI6Ii15YVZETmcifQ.iwFzK-RnFcNDU_msz06eQQ';
+var map = L.mapbox.map('map', 'chriswand.kdm86mf3');
+var tickets = [ {
+  "ticket_id" : "601169",
+  "location" : {
+    "needs_recoding" : false,
+    "longitude" : "-71.060953",
+    "latitude" : "42.4321467",
+    "human_address" : "{\"address\":\"\",\"city\":\"\",\"state\":\"\",\"zip\":\"\"}"
+  },
+  "issue_type" : "Pothole",
+  "ticket_last_updated_date_time" : "2013-07-10T09:19:01",
+  "lng" : "-71.060953",
+  "city" : "Malden",
+  "ticket_created_date_time" : "2013-06-27T14:31:38",
+  "ticket_status" : "Archived",
+  "ticket_closed_date_time" : "2013-06-27T14:46:48",
+  "address" : "72 Clark Street Malden, Massachusetts",
+  "rating" : "2",
+  "lat" : "42.4321467",
+  "issue_description" : "Pothole"
+}];
+
+
+function toGeoJSON(ticketData) {
+  return {
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: [ticketData["lng"], ticketData["lat"]]
+    },
+    properties: {
+      title: ticketData["issue_type"],
+      description: ticketData["issue_description"],
+      "marker-size" : "medium",
+      "marker-color" : "#FF0000"
+    }
+  };
+}
+
+var ticketDataInGeoJSON = _.map(tickets, toGeoJSON);
+
+var ticketDataLayer = L.mapbox.featureLayer(ticketDataInGeoJSON).addTo(map);
+
+map.fitBounds(ticketDataLayer.getBounds());
+
+</script>
