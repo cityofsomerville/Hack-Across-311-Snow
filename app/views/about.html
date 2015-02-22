@@ -1,0 +1,58 @@
+<div class="row">
+  <aside class="col-md-3">
+
+    <h3>Choose a city</h3>
+    <select class='form-control' 
+      ng-options="city.city for city in (cities|orderBy:'city')" ng-model="selectedCity" ng-change="updateCity()">
+    </select>
+
+    <h3>Top 311 Categories</h3>
+    <ul class='list-group'>
+      <li  ng-click="selectCategory(category)" class="list-group-item" ng-repeat="category in (categories|sortByTotal)">
+	<a class="btn btn-sm">{{category.category}}</a>
+      </li>
+    </ul>
+    <hr/>
+    <div class='input-group'>
+      <input type='text' class='form-control' placeholder='Search for word or phrase' aria-describedby='search'>
+    <top-categories></top-categories>
+  </aside>
+  <div class="col-md-9">
+    <div class="row">
+      <div style="height:397px">
+	<!-- {{tickets}}  -->
+        <leaflet ng-if="map.center" markers="data.markers" center="map.center" height="380px" width="600px"></leaflet>
+
+        <!--
+        <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+          <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'">
+          </ui-gmap-markers>
+        </ui-gmap-google-map>
+        -->
+      </div>
+
+      <hr/>
+
+      <div style="height:200px"> 
+       <table class="table table-striped" data-toggle="table" >
+         <thead><tr>
+            <th data-field="id">Ticket Number</th>
+            <th data-field="price">Create Time</th>
+            <th data-field="name">Last Update</th>
+            <th data-field="name">Closed Date</th>
+        </tr></thead>
+
+        <tbody><tr ng-repeat="ticket in tickets">
+          <td><a popover="{{ticket.issue_type}}" popover-trigger="mouseenter">{{ticket.ticket_id}}</a></td>
+          <td>{{ticket.ticket_created_date_time | tableDate}}</td>
+          <td>{{ticket.ticket_last_updated_date_time | tableDate}}</td>
+          <td>{{ticket.ticket_closed_date_time | tableDate}}</td>
+        </tr></tbody>
+       </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

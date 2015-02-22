@@ -1,0 +1,22 @@
+<div class="row">
+  <aside class="col-md-3">
+    <p>This is the about view.</p>
+{{awesomeThings}}
+    <ul>
+      <li ng-repeat="category in categories">
+	{{category}}
+      </li>
+    </ul>
+    <top-categories></top-categories>
+  </aside>
+
+  <div class="col-md-9">
+    <div>this is the map</div>
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+      <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'">
+      </ui-gmap-markers>
+    </ui-gmap-google-map>
+  </div>
+</div>
+
+
