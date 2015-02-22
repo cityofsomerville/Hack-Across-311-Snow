@@ -1,8 +1,8 @@
 # Hack-Across-311-Snow
+![](https://raw.githubusercontent.com/cityofsomerville/Hack-Across-311-Snow/master/app/images/tellus-logo-sm.gif)
 Visualizing 311 calls that come in during emergencies.
 
-## FrameWorks Used
-* Make sure your city is using Socarata and connect it with city endpoint
+## Toolkit
 * Git
 * Grunt http://gruntjs.com/
 * Bootstrap http://getbootstrap.com/
@@ -11,6 +11,7 @@ Visualizing 311 calls that come in during emergencies.
 * Bower http://bower.io/
 
 ## Build & development
+After you clone repo
 
 Run `grunt` for building and `grunt serve` for preview.
 
