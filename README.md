@@ -1,9 +1,14 @@
 # Hack-Across-311-Snow
-Visualizing 311 calls that come in during snow emergencies
+Visualizing 311 calls that come in during emergencies.
 
-
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.11.1.
+## FrameWorks Used
+* Make sure your city is using Socarata and connect it with city endpoint
+* Git
+* Grunt http://gruntjs.com/
+* Bootstrap getbootstrap.com/
+* Angular https://angularjs.org/
+* Node nodejs.org/
+* Bower http://bower.io/
 
 ## Build & development
 
@@ -12,3 +17,6 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+## Putting City Data
+  We are using information from Socrata. Note that this application is using the city of Boston's data meaning that you need to switch a few things up in your code.
