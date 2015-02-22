@@ -20,7 +20,7 @@ angular.module 'som311App'
   )
 
   .service('GeoSvc', ['$http', ($http) ->
-    geoIP: (ip) -> 
+    geoIP: (ip) ->
       url = "http://freegeoip.net/json/#{ip}"
       $http.get(url).then((res) -> res.data)
 
@@ -36,7 +36,7 @@ angular.module 'som311App'
 
 
     tickets: (city) ->
-      qry = 
+      qry =
        city: city
        $order: "ticket_last_updated_date_time DESC"
 
@@ -51,13 +51,13 @@ angular.module 'som311App'
        return data
 
 
-      $http.get(opentickets, 
+      $http.get(opentickets,
         params: qry
         transformResponse: (data, headers) -> _.map(JSON.parse(data), xformTicket)
       )
 
-    categories: (city) -> 
-      qry = 
+    categories: (city) ->
+      qry =
         "$select": "issue_type as category, count(*) as total"
         "$group": "issue_type"
         "city": city
@@ -68,10 +68,10 @@ angular.module 'som311App'
     cities: () ->
       qry = $select: "city"
       $http.get(ticketct, params: qry)
-        
+
 
     textQuery: (str, city="") ->
-      qry = 
+      qry =
         $q: str
         city: city
       $http.get(opentickets, params: qry)
@@ -93,15 +93,15 @@ angular.module 'som311App'
                 <dd class='time'>#{ticket.ticket_closed_date_time||"still open"}</dd>
             </dl>
           </div>"
- 
+
         lng: ticket.location.longitude
         lat: ticket.location.latitude
         message: message
         open: ! ticket.ticket_closed_date_time
         #  description: ticket.description
-        #"marker-size": "medium" 
+        #"marker-size": "medium"
         #"marker-color": "#ff0000"
- 
+
 
     updateCategories = (city) ->
       SocrataSvc.categories(city).then((response) ->
@@ -115,9 +115,13 @@ angular.module 'som311App'
       )
 
     updateMap = (city, tickets) ->
-      $scope.data.markers = _.take(_.filter(_.map(tickets, ticket2leafmarker), 
+      markers = _.take(_.filter(_.map(tickets, ticket2leafmarker),
         (marker) -> marker.open), 100)
-      console.log("markers:", $scope.data.markers)
+      $scope.data.markers = markers
+      console.log("markers:", markers)
+
+      leafletData.getMap().then((map) ->
+        map.fitBounds(L.latLngBounds(markers)))
       #leafletData.getMap().then((map) ->
       #  L.GeoIP.centerMapOnPosition(map, 15);
       #)
@@ -129,7 +133,7 @@ angular.module 'som311App'
 
 
     # default values
-    $scope.data = 
+    $scope.data =
       markers: {}
 
     $scope.selectedCity = city: 'City of Somerville'
@@ -151,7 +155,7 @@ angular.module 'som311App'
     update()
 
 
-    
+
     SocrataSvc.textQuery("tree").then((response) -> console.log(response))
 
     SocrataSvc.cities().then((response) ->
@@ -166,7 +170,7 @@ angular.module 'som311App'
       'Karmad'
     ]
 
-    $scope.updateCity = () -> 
+    $scope.updateCity = () ->
       console.log("foof", $scope.selectedCity)
       update()
 
