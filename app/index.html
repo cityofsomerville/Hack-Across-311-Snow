@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
     <!-- endbuild -->
 
+
+
+   <!-- Custom styles for canvas (not working) -->
+   <!-- <link href="styles/custom.css" rel="stylesheet"> -->
+
     <style type="text/css">
         .list-group-item {
           padding: 4px 8px !important;
@@ -36,7 +41,7 @@
     </style>
   </head>
   <body ng-app="som311App">
-    <!--[if lt IE 7]>
+        <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
@@ -53,7 +58,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">MA 311</a>
+            <img src="images/tellus-logo-sm.gif" alt="311 logo" style= "margin-right: 10px; margin-top:10px;">
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -70,12 +75,6 @@
 
     <div class="container-fluid">
       <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Somerville 311 team</p>
-      </div>
     </div>
 
 
@@ -126,6 +125,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+
+
+
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Somerville 311 team</p>
+      </div>
+    </div>
+
+  </div>
 
 </body>
 </html>
