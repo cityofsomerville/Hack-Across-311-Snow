@@ -8,8 +8,11 @@
 
     <h3>Top 311 Categories</h3>
     <ul class='list-group'>
-      <li  ng-click="selectCategory(category)" class="list-group-item" ng-repeat="category in (categories|sortByTotal)">
-	<a class="btn btn-sm">{{category.category}}</a>
+      <li ng-click="toggleCategory(category)" class="list-group-item" ng-repeat="category in (categories|sortByTotal)">
+          <a class="btn btn-sm">
+              <input type="checkbox" ng-checked="isCategorySelected(category)">&nbsp;
+              <span ng-bind="category"></span>
+          </a>
       </li>
     </ul>
     <hr/>
@@ -22,7 +25,7 @@
     <div class="row">
       <div style="height:397px">
 	<!-- {{tickets}}  -->
-        <leaflet ng-if="map.center" markers="data.markers" center="map.center" height="380px" width="600px"></leaflet>
+        <leaflet ng-if="map.center" markers="markers" center="map.center" height="380px" width="600px"></leaflet>
 
         <!--
         <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
@@ -44,7 +47,7 @@
         </tr></thead>
 
         <tbody><tr ng-repeat="ticket in tickets">
-          <td><a popover="{{ticket.issue_type}}" popover-trigger="mouseenter">{{ticket.ticket_id}}</a></td>
+          <td><a popover="{{ticket.issue_type}}" popover-trigger="mouseenter" href="#">{{ticket.ticket_id}}</a></td>
           <td>{{ticket.ticket_created_date_time | tableDate}}</td>
           <td>{{ticket.ticket_last_updated_date_time | tableDate}}</td>
           <td>{{ticket.ticket_closed_date_time | tableDate}}</td>

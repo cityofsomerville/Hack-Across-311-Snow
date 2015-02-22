@@ -105,26 +105,44 @@ angular.module 'som311App'
 
     updateCategories = (city) ->
       SocrataSvc.categories(city).then((response) ->
-        console.log(response.data)
-        $scope.categories = response.data
+        autoselectCount = 3
+        categories = _.pluck(response.data, "category")
+        $scope.categories = categories
+        console.log("categories:", categories)
+        
+        # Recompute the filters
+        $scope.filterCategories = _.reduce(_.take(categories, autoselectCount), 
+                                        ((o, cat) -> 
+                                            o[cat] = true
+                                            o
+                                        ), {})
+        console.log("filter cat:", $scope.filterCategories)
+        categories
       )
 
     updateTickets = (city) ->
       SocrataSvc.tickets(city).then((response) ->
-        $scope.tickets = response.data
+        tickets = response.data
+        
+        # Show only tickets matching the selected filters
+        $scope.tickets = _.filter(tickets, (t) -> $scope.filterCategories[t.issue_type])
+        
+        tickets
       )
 
+    # Fit the map to the displayed ticket markers
     updateMap = (city, tickets) ->
+      console.log("Updating markers")
       markers = _.take(_.filter(_.map(tickets, ticket2leafmarker),
         (marker) -> marker.open), 100)
-      $scope.data.markers = markers
-      console.log("markers:", markers)
+      angular.extend($scope, {
+        markers: markers
+      })
+      # $scope.data.markers = markers
+      # console.log("markers:", markers)
 
       leafletData.getMap().then((map) ->
         map.fitBounds(L.latLngBounds(markers)))
-      #leafletData.getMap().then((map) ->
-      #  L.GeoIP.centerMapOnPosition(map, 15);
-      #)
 
     update = () ->
       if ((city = $scope.selectedCity?.city))
@@ -169,11 +187,25 @@ angular.module 'som311App'
       'AngularJS'
       'Karmad'
     ]
+    
+    $scope.filterCategories = {}
 
     $scope.updateCity = () ->
-      console.log("foof", $scope.selectedCity)
       update()
-
+     
+    $scope.isCategorySelected = (cat) ->
+        # ?? cat in $scope.filterCategories
+        $scope.filterCategories[cat]
+      
+    $scope.toggleCategory = (cat) ->
+        if $scope.filterCategories[cat]
+            delete $scope.filterCategories[cat]
+        else
+            $scope.filterCategories[cat] = true
+        
+        # Copied from above
+        if ((city = $scope.selectedCity?.city))
+          updateTickets(city).then((tickets) -> updateMap(city, tickets))
 
 ###
 
