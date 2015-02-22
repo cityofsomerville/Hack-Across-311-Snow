@@ -2,7 +2,7 @@
   <aside class="col-md-3">
 
     <h3>Choose a city</h3>
-    <select class='form-control' 
+    <select class='form-control'
       ng-options="city.city for city in (cities|orderBy:'city')" ng-model="selectedCity" ng-change="updateCity()">
     </select>
 
@@ -17,6 +17,7 @@
       <input type='text' class='form-control' placeholder='Search for word or phrase' aria-describedby='search'>
     <top-categories></top-categories>
   </aside>
+
   <div class="col-md-9">
     <div class="row">
       <div style="height:397px">
@@ -33,7 +34,7 @@
 
       <hr/>
 
-      <div style="height:200px"> 
+      <div>
        <table class="table table-striped" data-toggle="table" >
          <thead><tr>
             <th data-field="id">Ticket Number</th>
@@ -54,5 +55,3 @@
     </div>
   </div>
 </div>
-
-
