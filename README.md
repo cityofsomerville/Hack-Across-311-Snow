@@ -5,9 +5,9 @@ Visualizing 311 calls that come in during emergencies.
 * Make sure your city is using Socarata and connect it with city endpoint
 * Git
 * Grunt http://gruntjs.com/
-* Bootstrap getbootstrap.com/
+* Bootstrap http://getbootstrap.com/
 * Angular https://angularjs.org/
-* Node nodejs.org/
+* Node http://nodejs.org/
 * Bower http://bower.io/
 
 ## Build & development
