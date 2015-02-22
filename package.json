@@ -1,7 +1,9 @@
 {
   "name": "som311",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+        "coffee-script": "1.9.1"
+    },
   "repository": {},
   "devDependencies": {
     "coffee-script": "^1.9.1",
