@@ -17,7 +17,6 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
     <!-- endbuild -->
 
 
@@ -48,7 +47,7 @@
     <!-- Add your site or application content here -->
     <div class="header">
       <div class="navbar navbar-default" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
@@ -58,7 +57,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <img src="images/tellus-logo-sm.gif" alt="311 logo" style= "margin-right: 10px; margin-top:10px;">
+            <img src="images/tellus-logo-sm.gif" alt="tell us logo" style= "margin-right: 10px; margin-top:8px;">
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -76,6 +75,13 @@
     <div class="container-fluid">
       <div ng-view=""></div>
     </div>
+
+    <div class="footer">
+      <div class="container-fluid">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Somerville 311 team</p>
+      </div>
+    </div>
+
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -121,21 +127,12 @@
 -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.1/underscore-min.js"></script>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 
 
 
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Somerville 311 team</p>
-      </div>
-    </div>
-
-  </div>
 
 </body>
 </html>
