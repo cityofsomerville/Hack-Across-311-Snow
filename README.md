@@ -20,9 +20,13 @@ Installing node.js installs the `npm` package manager. Once installed, grunt, bo
 
 
 ## Build & development
-After you clone repo
+After you clone repo dependencies need to be loaded
 
-Run `grunt` for building and `grunt serve` for preview.
+    cd Hack-Across-311-Snow
+    npm install
+    bower install
+
+The grunt utility is then used to execute various tasks. On the command line run `grunt` for building and `grunt serve` for preview and development with live reloading, i.e. changes are immediately reflected in the browser without refresh.
 
 ## Testing
 
