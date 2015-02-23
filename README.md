@@ -14,6 +14,8 @@ Installing node.js installs the `npm` package manager. Once installed, grunt, bo
 
     npm -g install bower grunt-cli jshint
 
+If `compass` is not already installed, you will first need ruby and the ruby dev packages which can be downloaded and installed with your OS's package manager. E.g.`yum install ruby ruby-devel` on RedHat based systems. 
+
 ## Development Framework
 * Bootstrap http://getbootstrap.com/
 * AngularJS https://angularjs.org/
