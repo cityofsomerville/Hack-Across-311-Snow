@@ -29,7 +29,7 @@ angular.module 'som311App'
       tickets
 
     (all) -> all
-
+  )
 
   .service('GeoSvc', ['$http', ($http) ->
     geoIP: (ip) ->
@@ -89,6 +89,7 @@ angular.module 'som311App'
       $http.get(opentickets, params: qry)
 
   ])
+
   .controller 'AboutCtrl', ($scope, SocrataSvc, GeoSvc, leafletData) ->
     ticket2leafmarker = (ticket) ->
       if (! ticket.location?.longitude)
@@ -140,10 +141,10 @@ angular.module 'som311App'
         map.fitBounds(L.latLngBounds(markers)))
 
     update = () ->
+      # warning: no else
       if ((city = $scope.selectedCity?.city))
         updateCategories(city)
         updateTickets(city).then((tickets) -> updateMap(city, tickets))
-      # warning: no else
 
     # check w/ brian re intent 
     filterCategories = () -> 
@@ -173,7 +174,7 @@ angular.module 'som311App'
     geoIP_err = (err) ->
       lat: 42.44
       lng: -71.07
-
+     
     $scope.filterCategories = {}
 
     # updateCategories($scope.selectedCity.city)
@@ -192,18 +193,15 @@ angular.module 'som311App'
 
     $scope.updateCity = () ->
       update()
-     
+
     $scope.isCategorySelected = (cat) ->
         # ?? cat in $scope.filterCategories
         $scope.filterCategories[cat]
       
     $scope.toggleCategory = (cat) ->
-        if $scope.filterCategories[cat]
-            delete $scope.filterCategories[cat]
-        else
-            $scope.filterCategories[cat] = true
-        
-        # Copied from above
-        if ((city = $scope.selectedCity?.city))
-          updateTickets(city).then((tickets) -> updateMap(city, tickets))
+      if $scope.filterCategories[cat]
+        delete $scope.filterCategories[cat]
+      else
+        $scope.filterCategories[cat] = true
+
 
