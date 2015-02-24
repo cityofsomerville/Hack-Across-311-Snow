@@ -19,6 +19,18 @@ angular.module 'som311App'
       if (date) then $filter('date')(date, "EEE MMM d, yyyy") else date
   )
 
+  .filter('byCategory', () ->
+
+    # check w/ brian re intent 
+    # identity filter for now 
+    filterTickets = () ->
+      # Show only tickets matching the selected filters
+      $scope.tickets = _.filter(tickets, (t) -> $scope.filterCategories[t.issue_type])
+      tickets
+
+    (all) -> all
+
+
   .service('GeoSvc', ['$http', ($http) ->
     geoIP: (ip) ->
       url = "http://freegeoip.net/json/#{ip}"
@@ -105,29 +117,12 @@ angular.module 'som311App'
 
     updateCategories = (city) ->
       SocrataSvc.categories(city).then((response) ->
-        autoselectCount = 3
-        categories = _.pluck(response.data, "category")
         $scope.categories = categories
-        console.log("categories:", categories)
-        
-        # Recompute the filters
-        $scope.filterCategories = _.reduce(_.take(categories, autoselectCount), 
-                                        ((o, cat) -> 
-                                            o[cat] = true
-                                            o
-                                        ), {})
-        console.log("filter cat:", $scope.filterCategories)
-        categories
       )
 
     updateTickets = (city) ->
       SocrataSvc.tickets(city).then((response) ->
-        tickets = response.data
-        
-        # Show only tickets matching the selected filters
-        $scope.tickets = _.filter(tickets, (t) -> $scope.filterCategories[t.issue_type])
-        
-        tickets
+        $scope.tickets = response.data
       )
 
     # Fit the map to the displayed ticket markers
@@ -148,6 +143,21 @@ angular.module 'som311App'
       if ((city = $scope.selectedCity?.city))
         updateCategories(city)
         updateTickets(city).then((tickets) -> updateMap(city, tickets))
+      # warning: no else
+
+    # check w/ brian re intent 
+    filterCategories = () -> 
+      autoselectCount = 3
+      categories = _.pluck($scope.categories, "category")
+        
+      # Recompute the filters
+      $scope.filterCategories = _.reduce(_.take(categories, autoselectCount), 
+                                        ((o, cat) -> 
+                                            o[cat] = true
+                                            o
+                                        ), {})
+      console.log("filter cat:", $scope.filterCategories)
+      categories
 
 
     # default values
@@ -164,6 +174,7 @@ angular.module 'som311App'
       lat: 42.44
       lng: -71.07
 
+    $scope.filterCategories = {}
 
     # updateCategories($scope.selectedCity.city)
     GeoSvc.geoIP("").then(geoIP_ok, geoIP_err).then((loc)->
@@ -172,23 +183,12 @@ angular.module 'som311App'
     )
     update()
 
-
-
-    SocrataSvc.textQuery("tree").then((response) -> console.log(response))
+    # SocrataSvc.textQuery("tree").then((response) -> console.log(response))
 
     SocrataSvc.cities().then((response) ->
       $scope.cities = response.data
     )
 
-
-
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karmad'
-    ]
-    
-    $scope.filterCategories = {}
 
     $scope.updateCity = () ->
       update()
@@ -207,16 +207,3 @@ angular.module 'som311App'
         if ((city = $scope.selectedCity?.city))
           updateTickets(city).then((tickets) -> updateMap(city, tickets))
 
-###
-
-
-  .controller('TicketCtrl, ['$scope', 'SocrataSvc', [($scope, SocrataSvc) ->
-    $scope.categories = SocrataSvc.categories()
-  ])
-
-
-  .directive('topCategories', [() ->
-    replace: true
-    templateUrl: 'templates/topCategories.html'
-  ])
-###
